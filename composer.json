@@ -1,0 +1,35 @@
+{
+  "name": "divengine/div-orm",
+  "description": "Div ORM for PHP",
+  "keywords": [
+    "orm",
+    "database",
+    "sql"
+  ],
+  "homepage": "https://divengine.com",
+  "version": "1.0",
+  "license": [
+    "GPL-3.0-or-later"
+  ],
+  "authors": [
+    {
+      "name": "Rafa Rodriguez",
+      "email": "rafageist@hotmail.com",
+      "homepage": "https://rafageist.github.io",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "files": [
+      "divORM.php"
+    ]
+  },
+  "autoload-dev": {
+    "files": [
+      "divORM.php"
+    ]
+  }
+}
