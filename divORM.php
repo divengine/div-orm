@@ -371,7 +371,6 @@ class divORM {
 		return $results;
 	}
 
-
 	/**
 	 * Fetch one
 	 *
@@ -379,7 +378,7 @@ class divORM {
 	 * @param null $className
 	 * @param array $constructorArguments
 	 *
-	 * @return array
+	 * @return object
 	 */
 	public function fetchObject($params = [], $className = NULL, $constructorArguments = []) {
 		$properties = NULL;
