@@ -29,7 +29,9 @@ divORM::map()->designTable('person')
 		->create();
 
 // $orm->insert ...
-divORM::map()->insert('person', ["name" => "Peter"]);
+$result = divORM::map()->insert('person', ["name" => "Peter"], $st, " RETURNING id ");
+$returning = $st->fetchObject();
+var_dump($returning);
 
 // $orm->select ...
 $persons = divORM::map()->select()->from('person')->fetchObjects([],'Person');

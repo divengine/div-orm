@@ -177,10 +177,10 @@ class divORM {
 	 * @throws Exception
 	 * @return bool
 	 */
-	public function insert($tableName, $fields, PDOStatement &$st = NULL) {
+	public function insert($tableName, $fields, PDOStatement &$st = NULL, $suffix = '') {
 		$sqlFields = implode(',', array_keys($fields));
 		$sqlValues = '?' . str_repeat(",?", count($fields) - 1);
-		$sql       = "INSERT INTO $tableName ($sqlFields) VALUES ($sqlValues);";
+		$sql       = "INSERT INTO $tableName ($sqlFields) VALUES ($sqlValues) $suffix;";
 		$st        = $this->db()->prepare($sql);
 		$result    = $st->execute(array_values($fields));
 
