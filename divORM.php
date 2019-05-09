@@ -199,8 +199,9 @@ class divORM {
 	 * @return $this
 	 */
 	public function select($fields = "*") {
-		if ($fields == "*")
+		if ($fields == "*") {
 			$fields = self::uniqueToken('{selectAll}');
+		}
 
 		$this->__current_sql = "SELECT $fields ";
 		return $this;
@@ -346,7 +347,6 @@ class divORM {
 		}
 
 
-
 		$results = NULL;
 
 		if (!is_null($className) && empty($constructorArguments)) {
@@ -361,7 +361,7 @@ class divORM {
 			foreach ($results as $result) {
 				$vars = get_object_vars($result);
 				foreach ($vars as $var => $value) {
-					if (array_search($var, $properties) === false) {
+					if (array_search($var, $properties) === FALSE) {
 						unset($result->$var);
 					}
 				}
@@ -371,4 +371,56 @@ class divORM {
 		return $results;
 	}
 
+
+	/**
+	 * Fetch one
+	 *
+	 * @param array $params
+	 * @param null $className
+	 * @param array $constructorArguments
+	 *
+	 * @return array
+	 */
+	public function fetchObject($params = [], $className = NULL, $constructorArguments = []) {
+		$properties = NULL;
+		if (!is_null($className)) {
+			$properties = [];
+			$reflection = (new ReflectionClass($className))->getProperties(ReflectionProperty::IS_PUBLIC);
+			foreach ($reflection as $ref) {
+				$properties[] = $ref->name;
+			}
+		}
+
+		if (!is_null($properties)) {
+			$this->__current_sql = str_replace(self::uniqueToken('{selectAll}'), implode(',', $properties), $this->__current_sql);
+		}
+
+		$st = $this->prepare();
+		$st->execute($params);
+
+		if (is_null($className) && empty($constructorArguments)) {
+			return $st->fetchObject();
+		}
+
+		$result = NULL;
+
+		if (!is_null($className) && empty($constructorArguments)) {
+			$result = $st->fetchObject($className);
+		}
+
+		if (!is_null($className) && !empty($constructorArguments)) {
+			$result = $st->fetchObject($className, $constructorArguments);
+		}
+
+		if (!is_null($result) && !is_null($properties)) {
+			$vars = get_object_vars($result);
+			foreach ($vars as $var => $value) {
+				if (array_search($var, $properties) === FALSE) {
+					unset($result->$var);
+				}
+			}
+		}
+
+		return $result;
+	}
 }

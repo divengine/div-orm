@@ -35,3 +35,7 @@ divORM::map()->insert('person', ["name" => "Peter"]);
 $persons = divORM::map()->select()->from('person')->fetchObjects([],'Person');
 
 var_dump($persons); // inserted_date if a field, but not a property in Person
+
+$person = divORM::map()->select()->from('person')->fetchObject([],'Person');
+
+var_dump($person);
