@@ -231,6 +231,37 @@ class divORM {
 		return $this;
 	}
 
+	/**
+	 * LIMIT
+	 *
+	 * @param $limit
+	 *
+	 * @return $this
+	 */
+	public function limit($limit){
+		$this->__current_sql .= " LIMIT $limit ";
+		return $this;
+	}
+
+	/**
+	 * OFFSET
+	 *
+	 * @param $offset
+	 *
+	 * @return $this
+	 */
+	public function offset($offset){
+		$this->__current_sql .= " OFFSET $offset ";
+		return $this;
+	}
+
+	/**
+	 * CREATE TABLE
+	 *
+	 * @param $tableName
+	 *
+	 * @return $this
+	 */
 	public function designTable($tableName) {
 		$this->__current_sql = "CREATE TABLE $tableName (";
 		return $this;
