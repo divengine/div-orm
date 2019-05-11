@@ -160,7 +160,7 @@ class divORM {
 			$query = $this->__current_sql;
 		}
 
-		$this->__current_sql = str_replace(self::uniqueToken('{selectAll}'), ' * ', $this->__current_sql);
+		$query = str_replace(self::uniqueToken('{selectAll}'), ' * ', $query);
 
 		$this->clearTokens();
 
